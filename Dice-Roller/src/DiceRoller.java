@@ -1,3 +1,5 @@
+import Exceptions.InvalidInputException;
+import Exceptions.NotInRangeException;
 import Game.ThrowDice;
 import Messages.StartGameMessages;
 
@@ -8,8 +10,9 @@ public class DiceRoller {
         StartGameMessages.startUpMessage();
         StartGameMessages.showInstructions();
 
-        ThrowDice dice = new ThrowDice();
-        while (true) {
+        try {
+            ThrowDice dice = new ThrowDice();
+
             System.out.print("How many dices?: ");
             dice.setNumbersOfDices(dice.getClientNumbersOfDice());
 
@@ -17,6 +20,8 @@ public class DiceRoller {
             dice.getClientGuess();
 
             dice.generateGame();
+        } catch (NotInRangeException | InvalidInputException exception) {
+            exception.printStackTrace();
         }
     }
 }

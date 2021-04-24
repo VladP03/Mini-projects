@@ -1,5 +1,7 @@
 package Game;
 
+import Exceptions.InvalidInputException;
+import Exceptions.NotInRangeException;
 import Messages.DecisionsMessages;
 import java.util.Arrays;
 import java.util.Random;
@@ -17,11 +19,9 @@ public class ThrowDice {
     private static final Scanner scanner = new Scanner(System.in);
 
 
-
     public ThrowDice() {
         this(1);
     }
-
 
     public ThrowDice(int numbersOfDices) {
         this.numbersOfDices =  numbersOfDices;
@@ -40,16 +40,23 @@ public class ThrowDice {
         }
     }
 
-    public void getClientGuess() {
+    public void getClientGuess() throws NotInRangeException {
         numbersExpected = new int[numbersOfDices];
 
         if (numbersOfDices == 1) {
             numbersExpected[0] = getInput();
+            if (numbersExpected[0] < 1 || numbersExpected[0]>6) {
+                throw new NotInRangeException();
+            }
         } else {
             System.out.println();
             for (int i = 0; i < numbersOfDices; i++) {
                 System.out.printf("dice[%d]: ", i + 1);
                 numbersExpected[i] = getInput();
+
+                if (numbersExpected[i] < 1 || numbersExpected[i]>6) {
+                    throw new NotInRangeException();
+                }
             }
         }
     }
@@ -72,7 +79,11 @@ public class ThrowDice {
         return Arrays.equals(numbersExpected, numbersGenerated);
     }
 
-    public void setNumbersOfDices(int numbersOfDices) {
+    public void setNumbersOfDices(int numbersOfDices) throws InvalidInputException {
+
+        if (numbersOfDices < 1) {
+            throw new InvalidInputException();
+        }
         this.numbersOfDices = numbersOfDices;
     }
 }

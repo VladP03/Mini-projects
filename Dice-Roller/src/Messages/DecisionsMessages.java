@@ -7,9 +7,9 @@ public class DecisionsMessages {
     public static void decisionMessage(int[] numbersExpected, int[] numbersGenerated, boolean decision) {
 
         if (decision == true) {
-            System.out.println("Congratulations!!!");
+            System.out.println("\nCongratulations!!!");
         } else {
-            System.out.println("Unfortunatelly ....");
+            System.out.println("\nUnfortunatelly ....");
         }
 
         System.out.println("Dice face: " + Arrays.toString(numbersGenerated));
